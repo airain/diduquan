@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>注册</title>
+<link rel="stylesheet" href="css/index.css" />
+<link rel="stylesheet" href="css/base.css" />
+
+
+
+</head>
+<body>
+<div class="logo mb20" style="border-bottom:2px solid #86c174;">
+ <div class="logo_weight">
+  <div class="logo_logo mt6"><img src="images/logo1.jpg"></div>
+  <div class="fr mt40  font1 gray_333 su "><a href="#">返回首页</a></div>
+  </div>
+</div>
+
+<!--content 开始-->
+<div class="content" > 
+    <div class="login">           
+       <div class="login_left">
+             <h3 class="title_ren"><span class="h3_landing">立即注册嘀嘟圈，获得<span class="yellow">500</span>积分！</span></h3>
+             <table cellspacing="0" cellpadding="0" border="0" class="info">
+                 <tbody>
+                    <tr>
+                       <th><span class="txt-impt">*</span>&nbsp;&nbsp;<span>注册邮箱：</span></th>
+                       <td ><input type="text" class="input_tong idleField" name="email" id="email"></td>
+                       <td class="w"><div style="width:260px;" id="emailTip" class="onShow">请认真填写号和登陆系统</div></td><!--邮箱账号-->
+                    </tr>
+                    <tr>
+                       <th><span class="txt-impt">*</span><span>&nbsp;&nbsp;创建密码：</span></th>
+                       <td><input type="password" class="input_tong idleField" name="password" id="password"></td>
+                       <td class="w"><div style="width:288px;" id="passwordTip" class="onShow">只能包含大、下划线，不少于6个字符</div></td><!--密码-->
+                    </tr>
+                    <tr>
+                        <th><span class="txt-impt">*</span>&nbsp;&nbsp;<span>用户名：</span></th>
+                        <td><input type="" class="input_tong idleField" name="repeat_password" id="repeat_password"></td><!--重复密码-->
+                        <td class="w"><div style="width:160px;" id="repeat_passwordTip" class="onShow">请确认密码</div></td>
+                    </tr>
+                 
+                   <tr>
+                        <th></th>
+                        <td><label><input type="checkbox" value="" class="log" name="" id="clause"><font style="color:#006699;"><a target="blank" href="/site/Hand/Service">接受服务条款</a>                              </font></label></td><!--接受服务条款-->
+                        <td></td>
+                   </tr>
+                   <tr>
+                        <td class="table_l"></td>
+                   </tr>
+                   <tr>
+                       <td class="table_ssu" colspan="3"><input type="submit" class="button_xia anniu" value="立即注册" name="" id="next"></td>
+                       </tr></tbody></table>
+             
+            
+                   </div>
+                   <div class="login_right p20">
+                        <h3 class="title_ren bordom_1 pb30"><span class="h3_landing">已有嘀嘟圈帐号？</span><input type="button" class="button_deng sign fr" value="登录" name="" id="login"></h3>
+             <table cellspacing="0" cellpadding="0" border="0">
+               <tbody>
+                   <tr><td class="table_sqm" style="height:0px;"></td><td class="table_schang "></td></tr>
+                   <tr></tr>
+                   <tr><td class="table_ll pt20">可以用第三方帐号登录</td><td class="table_sqm"></td><td class="table_schang "></td></tr>
+                   <tr><td align="center" colspan="2" class="table_su  pt10  pb20"><input type="button" id="login" name="" value="" class="button_deng weibo"><input type="button" id="login" name="" value="" class="button_deng qq"></td></tr>
+                   </tbody></table> 
+                   <div ><img src="images/ico14.jpg"></div>    
+                    </div>
+    </div>
+
+</div>
+<!--content end-->
+		 <!--footer 开始-->
+<div id="footer">
+<ul class="weight mt20 mb50">
+                <li><a href="#">关于亲子123 </a>丨<a href="#">广告服务</a>丨<a href="#">友情链接 </a>丨<a href="#">联系我们</a></li>           
+                 <li>Copyright ©  2012 qinzi123.com Inc. All Rights Reserved.</li>
+                 <li>京ICP备05079918号</li>
+              </ul>
+</div>
+        <!--footer 结束-->
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript">
+		$(function(){
+			$('#email').blur(function(){
+				var email = $(this).val();
+				var urlReg = /^[a-zA-Z0-9_.]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]{2,4}(\.[a-zA-Z0-9]{2,3})?$/;
+				if(!urlReg.test(email)){
+					$('#emailTip').text("错误格式");
+				} else {
+					$('#emailTip').text("正确");
+				} 
+			});
+			
+			$('#password').blur(function(){
+				var val = $(this).val();
+				var urlReg = /^(?=.*?[a-zA-Z])(?=.*?[0-6])[!"#$%&'()*+,\-./:;<=>?@\[\\\]^_`{|}~A-Za-z0-9]{8,20}$/;  
+				if(!urlReg.test(val)){
+					$('#passwordTip').text("错误格式");
+				} else {
+					$('#passwordTip').text("正确");
+				} 
+			});
+			
+			$('#repeat_password').blur(function(){
+				var val = $(this).val();
+				
+				if(val == ''){
+					$('#repeat_passwordTip').text("错误格式");
+				} else {
+					$('#repeat_passwordTip').text("正确");
+				} 
+			});
+		});
+		</script>
+</body>
+</html>
