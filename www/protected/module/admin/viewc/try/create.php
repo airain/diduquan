@@ -1,4 +1,4 @@
-<?php
+	<?php
 $this->inc("header");
 ?>
 <div class="container-fluid">
@@ -80,6 +80,7 @@ $this->inc("header");
 				  	<div id="showImgBox"><img id="showImg" src="<?php echo getImgUrl($item->logo); ?>"/></div>
 				    <div id="fileQueue"></div>
 				    <input type="text" name="uploadify" id="uploadify" />
+				    <!-- <a href="javascript:;" id="start_upload">start_upload</a> -->
 				    <!-- <input type="text" placeholder="产品logo"  name="pic" value="<?php echo $item->pic;?>" /> -->
 				  </div>
 				</div>

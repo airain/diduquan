@@ -57,7 +57,7 @@ class TryController extends ModuleController{
     }
 
     /**
-     * undocumented function
+     * des:申请操作
      *
      * @return void
      * @author
