@@ -5,12 +5,12 @@
  */
 Doo::loadClass("Base/BaseController");
 class TryController extends BaseController{
-	
+
 	public function beforeRun($resource, $action){
 		parent::beforeRun($resource, $action);
 		$this->vdata['module_name'] = "试用";
 	}
-	
+
     public function index(){
       //$this->addTestData();
       $condition = array(
@@ -20,6 +20,10 @@ class TryController extends BaseController{
       $this->vdata['list'] = $data;
       $this->viewRenderAutomation();
     }
+
+
+
+
 
     private function addTestData(){
       $data = array(
@@ -49,27 +53,27 @@ class TryController extends BaseController{
       );
       $data = $this->model("QinziProducts",$data)->insert();
     }
-    
+
     public function create(){
-    	
+
     	$submit = gpc_get("submit",false);
-    	
+
     	if($submit){
     		$valid = array(
     				'success' => true,
     				'message' => "成功"
     		);
-    			
+
     		$obj = new QinziProducts();
-    		
-    		//check data 
+
+    		//check data
     		foreach($this->getFields() as $k => $v){
     			if(isset($v['primary'])&&$v['primary']){
     				continue;
     			}
-    			
+
     			$value = gpc_get($k,$v['default']);
-    			
+
     			if(isset($v['notnull'])&&$v['notnull']&&$value==""){
     				$valid['success'] = false;
     				$valid['message'] = $v['lable']."不能为空";
@@ -77,7 +81,7 @@ class TryController extends BaseController{
     			}
     			$obj->$k = $value;
     		}
-    			
+
     		//insert data
     		if($valid['success']){
     			if($obj->insert()){
@@ -88,24 +92,24 @@ class TryController extends BaseController{
     				$valid['sql'] = $obj->db()->show_sql();
     			}
     		}
-    		
+
     		echo json_encode($valid);
-    		
+
     	}else{
     		$this->vdata['field'] = $this->getFields();
     		$this->viewRenderAutomation();
     	}
     }
-    
+
     public function update(){
-    	
+
     	$valid = array(
     			'success' => true,
     			'message' => "成功"
     	);
-    	
+
     	$id = intval(gpc_get("pid",false));
-    	
+
     	if($valid['success']&&!$id){
     		$valid['success'] = false;
     		$valid['message'] = "ID不能为空";
@@ -118,11 +122,11 @@ class TryController extends BaseController{
     			$valid['message'] = "信息未找到";
     		}
     	}
-    	
+
     	$submit = gpc_get("submit",false);
-    	 
+
     	if($submit){
-    		
+
     		//check data
     		foreach($this->getFields() as $k => $v){
     			if(isset($v['primary'])&&$v['primary']){
@@ -141,7 +145,7 @@ class TryController extends BaseController{
     				$obj->$k = $value;
     			}
     		}
-    		 
+
     		//update data
     		if($valid['success']){
     			if($obj->update()===false){
@@ -150,9 +154,9 @@ class TryController extends BaseController{
     				$valid['sql'] = $obj->db()->show_sql();
     			}
     		}
-    	
+
     		echo json_encode($valid);
-    	
+
     	}else{
     		if(!$valid['success']){
     			return 404;
@@ -161,9 +165,9 @@ class TryController extends BaseController{
     		$this->vdata['item'] = $item;
     		$this->viewRenderAutomation();
     	}
-    	
+
     }
-    
+
 	public function delete(){
 		$valid = array(
 			'success' => true,
@@ -185,20 +189,20 @@ class TryController extends BaseController{
 		}
 		echo json_encode($valid);
 	}
-    
+
     public function dlist(){
     	//order param
     	$order = array('pid'=>"asc");
     	$sort = gpc_get("sort","pid");
     	$desc = gpc_get("desc","asc");
     	$desc = in_array($desc, array('asc','desc'))?$desc:'asc';
-    	
+
     	//page param
     	$currPage = max(1,gpc_get("p",1));
     	$pageSize = gpc_get("size",1);
-    	
+
     	$obj = new QinziProducts();
-    	
+
     	//seach
     	$s_field = $this->getSearchFields();
     	$where = "1=1";
@@ -215,7 +219,7 @@ class TryController extends BaseController{
     			$obj->$k = $value;
     		}
     	}
-    	
+
     	//condition
     	$condition = array(
     			"asArray"=>true,
@@ -226,16 +230,16 @@ class TryController extends BaseController{
     			'where'=>$where,
     			'param'=>$param,
     	);
-    	
+
     	$this->vdata['list'] = $obj->find($condition);
     	$nums = $obj->count($condition);
-    	
+
 		//var_dump($obj->db()->show_sql());
-    	
+
     	$this->pagination($currPage, $nums,$pageSize);
     	$this->viewRenderAutomation();
     }
-    
+
     private function getSearchFields(){
     	$field = array();
     	foreach($this->getFields() as $k => $v){
@@ -245,155 +249,155 @@ class TryController extends BaseController{
     	}
     	return $field;
     }
-    
+
     private function getFields(){
     	return array (
-  'pid' => 
+  'pid' =>
   array (
     'label' => 'ID',
     'default' => '',
     'search' => '0',
     'primary' => true,
   ),
-  'parter_id' => 
+  'parter_id' =>
   array (
     'label' => '合作商id',
     'default' => '0',
     'search' => '0',
   ),
-  'title' => 
+  'title' =>
   array (
     'label' => '标题',
     'default' => '',
     'search' => '0',
   ),
-  'type_id' => 
+  'type_id' =>
   array (
     'label' => '产品类型id',
     'default' => '0',
     'search' => '0',
   ),
-  'price' => 
+  'price' =>
   array (
     'label' => '产品价格',
     'default' => '0.00',
     'search' => '0',
   ),
-  'jifen' => 
+  'jifen' =>
   array (
     'label' => '产品消费积分',
     'default' => '0',
     'search' => '0',
   ),
-  'reward_jifen' => 
+  'reward_jifen' =>
   array (
     'label' => '试用报价奖励积分',
     'default' => '0',
     'search' => '0',
   ),
-  'totype' => 
+  'totype' =>
   array (
     'label' => '参与对象[0所有，1备孕，2孕妇，3产妇，4孩子]',
     'default' => '0',
     'search' => '0',
   ),
-  'desc' => 
+  'desc' =>
   array (
     'label' => '申请规则',
     'default' => '',
     'search' => '0',
   ),
-  'content' => 
+  'content' =>
   array (
     'label' => '产品详细信息',
     'default' => '',
     'search' => '0',
   ),
-  'pic' => 
+  'pic' =>
   array (
     'label' => '产品logo',
     'default' => '',
     'search' => '0',
   ),
-  'city' => 
+  'city' =>
   array (
     'label' => '申请区域[城市]',
     'default' => '',
     'search' => '0',
   ),
-  'city_id' => 
+  'city_id' =>
   array (
     'label' => '城市id',
     'default' => '0',
     'search' => '0',
   ),
-  'provice' => 
+  'provice' =>
   array (
     'label' => '省份',
     'default' => '',
     'search' => '0',
   ),
-  'province_id' => 
+  'province_id' =>
   array (
     'label' => '省份id',
     'default' => '0',
     'search' => '0',
   ),
-  'posttype' => 
+  'posttype' =>
   array (
     'label' => '配送方式[1包邮，2自取，3付邮]',
     'default' => '0',
     'search' => '0',
   ),
-  'used_cnt' => 
+  'used_cnt' =>
   array (
     'label' => '已用商品数[申请成功人数]',
     'default' => '0',
     'search' => '0',
   ),
-  'remain_cnt' => 
+  'remain_cnt' =>
   array (
     'label' => '剩余商品数',
     'default' => '0',
     'search' => '0',
   ),
-  'b_cnt' => 
+  'b_cnt' =>
   array (
     'label' => '申请人数',
     'default' => '0',
     'search' => '0',
   ),
-  'b_stattime' => 
+  'b_stattime' =>
   array (
     'label' => '报名开始时间',
     'default' => '',
     'search' => '0',
   ),
-  'b_endtime' => 
+  'b_endtime' =>
   array (
     'label' => '报名截止日期',
     'default' => '',
     'search' => '0',
   ),
-  'bg_stattime' => 
+  'bg_stattime' =>
   array (
     'label' => '报告提交开始时间',
     'default' => '',
     'search' => '0',
   ),
-  'bg_endtime' => 
+  'bg_endtime' =>
   array (
     'label' => '报告提交截止日期',
     'default' => '',
     'search' => '0',
   ),
-  'bg_cnt' => 
+  'bg_cnt' =>
   array (
     'label' => '已提交报告数',
     'default' => '0',
     'search' => '0',
   ),
-  'createtime' => 
+  'createtime' =>
   array (
     'label' => '添加时间',
     'default' => '0',
@@ -401,7 +405,7 @@ class TryController extends BaseController{
   ),
 );
     }
-    
-   	
+
+
 }
 ?>
